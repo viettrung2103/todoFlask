@@ -36,7 +36,7 @@ def login():
   if request.method == "POST":
     session["name"] = request.form.get("name")
     return redirect("/")
-  if session.get("name"):
+  if "name" in session:
     return redirect("/")
   return render_template("login.html")
   
@@ -45,6 +45,13 @@ def logout():
   session.clear()
   return redirect("/")  
 
+@app.route("/lists")
+def lists():
+  name = session.get("name")
+  if name:
+    return render_template("lists.html",name = name)
+  else:
+    return redirect("/")
   
 if __name__ == "__main__":
   app.run(debug=True)  
