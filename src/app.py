@@ -45,13 +45,21 @@ def logout():
   session.clear()
   return redirect("/")  
 
-@app.route("/lists")
+@app.route("/lists", methods = ["GET","POST"])
 def lists():
   name = session.get("name")
-  if name:
-    return render_template("lists.html",name = name)
-  else:
-    return redirect("/")
+  if request.method == "GET":
+    tasks = db.execute("SELECT * FROM tasks")
+    return render_template("lists/lists.html",name = name, tasks = tasks)
+  
+
+  
+@app.route("/lists/add", methods=["GET"])
+def add():
+  name = session.get("name")
+  if request.method == "GET":
+    return render_template("lists/add-list.html", name = name)
+  
   
 if __name__ == "__main__":
   app.run(debug=True)  

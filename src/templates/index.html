@@ -5,7 +5,8 @@
   <h1>To Do App</h1>
   {% if name %}
     <p>Hello {{ name }} <a href="/logout">Log Out</a></p>
-    <p><a href="/lists">Lists:</a></p>
+    <p><a href="/lists">Lists:</a> </p>
+    <p><a href="/lists/add">Add Task</a></p>
     {% block lists %}
     {% endblock %}
   {% else %}

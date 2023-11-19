@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+
+{% block lists %}
+  <p>Here is the lists</p>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>IsDone</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+        <tr>
+          <th>{{task.id}}</th>
+          <th>{{task.name}}</th>
+          <th>{{task.description}}</th>
+          <!-- <th>{{task.description}}</th> -->
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}
