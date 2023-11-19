@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+  <h1>To Do App</h1>
+  {% if name %}
+    <p>Hello {{ name }} <a href="/logout">Log Out</a></p>
+  {% else %}
+    <p>You are not log in. <a href="/login">Log In</a></p>
+  {% endif %}
+
+{% endblock %}
