@@ -6,8 +6,8 @@ from flask_session import Session
 # Configure app
 app = Flask(__name__)
 
-# Connect to database -- implement later
-# db = SQL()
+# Connect to database 
+db = SQL("sqlite:///app.db")
 
 #Configure session
 app.config["SESSION_PERMANENT"] = False
