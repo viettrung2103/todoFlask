@@ -16,10 +16,10 @@
     <tbody>
       {% for task in tasks %}
         <tr>
-          <th>{{task.id}}</th>
-          <th>{{task.name}}</th>
-          <th>{{task.description}}</th>
-          <!-- <th>{{task.description}}</th> -->
+          <th>{{ task.id }}</th>
+          <th>{{ task.name }}</th>
+          <th>{{ task.description }}</th>
+          <th>{{ task.is_done }}</th>
         </tr>
       {% endfor %}
     </tbody>

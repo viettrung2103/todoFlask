@@ -50,15 +50,23 @@ def lists():
   name = session.get("name")
   if request.method == "GET":
     tasks = db.execute("SELECT * FROM tasks")
+    print(tasks)
     return render_template("lists/lists.html",name = name, tasks = tasks)
   
 
   
-@app.route("/lists/add", methods=["GET"])
+@app.route("/lists/add", methods=["GET","POST"])
 def add():
   name = session.get("name")
   if request.method == "GET":
     return render_template("lists/add-list.html", name = name)
+  else:
+    task_name = request.form.get("task-name")
+    description = request.form.get("description")
+    db.execute("INSERT INTO tasks (name,description) VALUES (?,?)", task_name,description)
+    # print(request.form)
+    return redirect("/lists")
+    
   
   
 if __name__ == "__main__":

@@ -2,9 +2,11 @@
 
 {% block lists %}
 <div class="add-task">
-  <form action="/lists" method="post">
-    <label for="name">Name:</label>
-    <input type="text" autocomplete="off" autofocus name = "name" placeholder="Name">
+  <form action="/lists/add" method="post">
+    <label for="task-name">Name:</label>
+    <input type="text" autocomplete="off" autofocus name = "task-name" placeholder="Task Name">
+    <label for="description">Description:</label>
+    <input type="text" autocomplete="off" placeholder="Description" name="description">
     <button type="submit">Add task</button>
   </form>
 </div>
