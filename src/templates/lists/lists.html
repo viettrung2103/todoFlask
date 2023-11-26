@@ -16,10 +16,20 @@
     <tbody>
       {% for task in tasks %}
         <tr>
-          <th>{{ task.id }}</th>
-          <th>{{ task.name }}</th>
-          <th>{{ task.description }}</th>
-          <th>{{ task.is_done }}</th>
+          <td>{{ task.id }}</td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.description }}</td>
+          <td>
+            {% if task.is_done == "0" %}
+            Done
+            {% else %}
+            Not Done
+            {% endif %}
+          </td>
+          <!-- <td>
+            <form action="/lists/<" method="post"></form>
+          </td> -->
+          
         </tr>
       {% endfor %}
     </tbody>
