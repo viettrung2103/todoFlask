@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% block lists %}
+  {% if not task %}
+  <p>There is no such task</p>
+  {% else %}
+
+  <form action="#" method="post">
+    <label for="task_id">Id: {{task.task_id}}</label>
+    <input name="task_id" type="hidden" value="{{task.task_id}}">
+    <label for="task_name">Name:</label>
+    <input type="text" name="task_name" id="task_name" value="{{task.name}}">
+    <label for="description">Description:</label>
+    <input type="text" name="description" id="task_desc" value="{{task.description}}">
+    <label for="is_done">Is Done:</label>
+    <input type="checkbox" name="is_done" {{ "checked" if task.is_done == 1 else "" }} id="task_name">
+    <button type="submit">Edit</button>
+  </form>
+
+    
+  {% endif %}
+{% endblock %}

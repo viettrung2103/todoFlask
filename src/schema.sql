@@ -1,5 +1,5 @@
 CREATE TABLE tasks (
-id INTEGER,
+task_id INTEGER,
 name TEXT NOT NULL,
 description TEXT NOT NULL,
 is_done BOOLEAN DEFAULT False,
