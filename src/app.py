@@ -1,5 +1,6 @@
 from cs50 import SQL
-from flask import Flask, redirect, render_template, request, session, url_for
+from flask import Flask, redirect, render_template, request, session, \
+                  url_for, flash
 from flask_session import Session
 # import utils as utils
 
@@ -35,6 +36,7 @@ def index():
 def login():
   if request.method == "POST":
     session["name"] = request.form.get("name")
+    flash('You were successfully logged in')
     return redirect(url_for("index"))
   if "name" in session:
     return redirect(url_for("index"))
@@ -53,8 +55,8 @@ def lists():
     # print(tasks)
     return render_template("lists/lists.html",name = name, tasks = tasks)
   if request.method == "POST":
-    id = request.form.get("task_id")
-    return redirect(url_for("edit",taskId = id))
+    task_id = request.form.get("task_id")
+    return redirect(url_for("edit",task_id = task_id))
     
   
   
@@ -64,12 +66,12 @@ def convert_is_done(text):
   else:
     return 0
 
-@app.route("/edit/<taskId>",methods = ["GET","POST"])
-def edit(taskId):
+@app.route("/edit/<task_id>",methods = ["GET","POST"])
+def edit(task_id):
   name = session.get("name")
   if request.method == "GET":
     #this return a list with one element
-    task = db.execute("SELECT * FROM tasks WHERE task_id = (?)",taskId)[0]
+    task = db.execute("SELECT * FROM tasks WHERE task_id = (?)",task_id)[0]
     print(type(task["is_done"]))
     return render_template("lists/edit_list.html",task = task, name = name)
   else:
@@ -78,10 +80,19 @@ def edit(taskId):
     description = request.form.get("description")
     is_done = convert_is_done(request.form.get("is_done"))
     db.execute("UPDATE tasks SET name = ?, description = ?, is_done = ? WHERE task_id = ?",task_name, description, is_done, task_id)
+    # alert("Update successfuly")
     return redirect(url_for("lists"))
   
-# @app.route("/edit/<taskID")
-# def
+@app.route("/delete/<task_id>", methods = ["GET","POST"])
+def delete(task_id):
+  # name = session.get("name")
+  if request.method == "GET":
+    return redirect(url_for("lists"))
+  else:
+    db.execute("DELETE FROM tasks WHERE task_id = ?",task_id)
+    # flash("Delete Successfully")
+    return redirect(url_for("lists"))
+  
   
 @app.route("/lists/add", methods=["GET","POST"])
 def add():
