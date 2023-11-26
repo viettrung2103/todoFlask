@@ -1,4 +1,6 @@
 .venv/
-__pycache__/
+.vscode/
+src/__pycache__/
 flask_session/
 launch.json
+*.pyc
