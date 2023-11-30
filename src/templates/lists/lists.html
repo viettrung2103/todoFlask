@@ -16,10 +16,29 @@
     <tbody>
       {% for task in tasks %}
         <tr>
-          <th>{{ task.id }}</th>
-          <th>{{ task.name }}</th>
-          <th>{{ task.description }}</th>
-          <th>{{ task.is_done }}</th>
+          <td>{{ task.task_id }}</td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.description }}</td>
+          <td>
+            {% if task.is_done == 1 %}
+            Done
+            {% else %}
+            Not Done
+            {% endif %}
+          </td>
+          <td>
+            <form action="#" method="post">
+              <input name="task_id" type="hidden" value="{{task.task_id}}">
+              <button type="submit">Edit</button>
+            </form>
+          </td>
+          <td>
+            <form action="{{ url_for("delete",task_id = task.task_id) }}" method="post">
+              <input name="task_id" type="hidden" value="{{task.task_id}}">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+          
         </tr>
       {% endfor %}
     </tbody>
