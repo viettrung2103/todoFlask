@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, session, \
                   url_for, flash
 from database.db import db
+from components import tasks
 
 def register_routes(app):
   
@@ -34,9 +35,8 @@ def register_routes(app):
   def lists():
     name = session.get("name")
     if request.method == "GET":
-      tasks = db.execute("SELECT * FROM tasks")
-      # print(tasks)
-      return render_template("lists/lists.html",name = name, tasks = tasks)
+      tasks_list = tasks.get_all_tasks()
+      return render_template("lists/lists.html",name = name, tasks = tasks_list)
     if request.method == "POST":
       task_id = request.form.get("task_id")
       return redirect(url_for("edit",task_id = task_id))
@@ -51,17 +51,14 @@ def register_routes(app):
   def edit(task_id):
     name = session.get("name")
     if request.method == "GET":
-      #this return a list with one element
-      task = db.execute("SELECT * FROM tasks WHERE task_id = (?)",task_id)[0]
-      print(type(task["is_done"]))
+      task = tasks.get_task_id(task_id)
       return render_template("lists/edit_list.html",task = task, name = name)
     else:
       task_id = request.form.get("task_id")
       task_name = request.form.get("task_name")
       description = request.form.get("description")
       is_done = convert_is_done(request.form.get("is_done"))
-      db.execute("UPDATE tasks SET name = ?, description = ?, is_done = ? WHERE task_id = ?",task_name, description, is_done, task_id)
-      # alert("Update successfuly")
+      tasks.edit_task_by_id(task_id,task_name,description,is_done)
       return redirect(url_for("lists"))
     
       
@@ -71,7 +68,7 @@ def register_routes(app):
     if request.method == "GET":
       return redirect(url_for("lists"))
     else:
-      db.execute("DELETE FROM tasks WHERE task_id = ?",task_id)
+      tasks.delete_task_by_id(task_id)
       # flash("Delete Successfully")
       return redirect(url_for("lists"))
     
@@ -84,7 +81,6 @@ def register_routes(app):
     else:
       task_name = request.form.get("task-name")
       description = request.form.get("description")
-      db.execute("INSERT INTO tasks (name,description) VALUES (?,?)", task_name,description)
-      # print(request.form)
+      tasks.add_task(task_name,description)
       return redirect(url_for("lists"))
       

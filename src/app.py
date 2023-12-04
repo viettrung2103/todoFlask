@@ -3,7 +3,6 @@ from flask import Flask, redirect, render_template, request, session, \
                   url_for, flash
                   
 from flask_session import Session
-from database.db import db
 from routes import register_routes
 
 # import utils as utils
