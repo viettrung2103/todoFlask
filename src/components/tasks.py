@@ -4,7 +4,7 @@ def get_all_tasks():
   tasks = db.execute("SELECT * FROM tasks")
   return tasks
 
-def get_task_id(task_id):
+def get_task_by_id(task_id):
   task = db.execute("SELECT * FROM tasks WHERE task_id = (?)",task_id)[0]
   return task
 
