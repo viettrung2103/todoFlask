@@ -1,7 +1,7 @@
 .venv/
 .vscode/
 src/__pycache__/
-flask_session/
+src/flask_session/
 launch.json
 *.pyc
 .idea/
